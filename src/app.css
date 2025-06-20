@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+@theme {
+	/* 1. iOS 26 Typography System */
+	--font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+
+	/* 2. Liquid Palette (Neon & Glass Tints) */
+	--color-glass-surface: rgba(255, 255, 255, 0.03);
+	--color-glass-border: rgba(255, 255, 255, 0.1);
+	--color-glass-highlight: rgba(255, 255, 255, 0.2);
+	--color-glass-shadow: rgba(0, 0, 0, 0.2);
+
+	/* Brand Colors (Vibrant for dark mode contrast) */
+	--color-dpp: #00ff62;
+	--color-kmt: #2884ff;
+	--color-tpp: #00e5ff;
+
+	/* 3. Physics & Depth */
+	--backdrop-blur-glass: 40px;
+	--radius-glass: 2rem;
+
+	/* 4. Custom Animations */
+	--animate-blob: blob 10s infinite;
+	--animate-tilt: tilt 10s infinite linear;
+
+	@keyframes blob {
+		0% {
+			transform: translate(0px, 0px) scale(1);
+		}
+		33% {
+			transform: translate(30px, -50px) scale(1.1);
+		}
+		66% {
+			transform: translate(-20px, 20px) scale(0.9);
+		}
+		100% {
+			transform: translate(0px, 0px) scale(1);
+		}
+	}
+
+	@keyframes tilt {
+		0%,
+		50%,
+		100% {
+			transform: rotate(0deg);
+		}
+		25% {
+			transform: rotate(1deg);
+		}
+		75% {
+			transform: rotate(-1deg);
+		}
+	}
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	background-color: #000;
+	font-family: var(--font-sans);
+	color: #fff;
+	overflow-x: hidden;
+}
+
+/* --- THE LIQUID BACKGROUND --- */
+.liquid-bg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: -1;
+	background: #000;
+	overflow: hidden;
+}
+
+.liquid-blob {
+	position: absolute;
+	filter: blur(80px);
+	opacity: 0.6;
+	animation: blob 10s infinite cubic-bezier(0.4, 0, 0.2, 1);
+	border-radius: 50%;
+}
+
+.blob-1 {
+	top: -10%;
+	left: -10%;
+	width: 50vw;
+	height: 50vw;
+	background: var(--color-kmt);
+	animation-delay: 0s;
+}
+.blob-2 {
+	top: 40%;
+	right: -10%;
+	width: 60vw;
+	height: 60vw;
+	background: var(--color-dpp);
+	animation-delay: 2s;
+}
+.blob-3 {
+	bottom: -20%;
+	left: 20%;
+	width: 40vw;
+	height: 40vw;
+	background: var(--color-tpp);
+	animation-delay: 4s;
+}
+
+/* --- GLASS MORPHISM UTILITIES --- */
+
+.glass-panel {
+	background: linear-gradient(
+		135deg,
+		var(--color-glass-surface) 0%,
+		rgba(255, 255, 255, 0.01) 100%
+	);
+	backdrop-filter: blur(var(--backdrop-blur-glass)) saturate(120%);
+	-webkit-backdrop-filter: blur(var(--backdrop-blur-glass)) saturate(120%);
+
+	border: 1px solid var(--color-glass-border);
+	border-top: 1px solid var(--color-glass-highlight);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+	box-shadow:
+		0 20px 40px -10px rgba(0, 0, 0, 0.5),
+		inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+
+	border-radius: var(--radius-glass);
+	/* Increased duration for smoother, subtler shift */
+	transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.glass-panel:hover {
+	/* REMOVED: transform: translateY(-4px) scale(1.005); */
+	/* Added: Subtle border brightness and shadow tightening instead of movement */
+	border-color: rgba(255, 255, 255, 0.15);
+	border-top-color: rgba(255, 255, 255, 0.3);
+	box-shadow:
+		0 25px 50px -12px rgba(0, 0, 0, 0.6),
+		inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+/* --- UI ELEMENTS --- */
+
+.checkbox {
+	appearance: none;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.05);
+	cursor: pointer;
+	position: relative;
+	transition: all 0.2s ease; /* Faster, snappy click response */
+}
+
+.checkbox:checked {
+	background: var(--color-kmt);
+	border-color: transparent;
+	box-shadow: 0 0 15px var(--color-kmt);
+}
+
+.table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+.table th {
+	text-align: left;
+	padding: 1rem 1.5rem;
+	font-weight: 600;
+	color: rgba(255, 255, 255, 0.6);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-size: 0.75rem;
+}
+.table td {
+	padding: 1.25rem 1.5rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+	color: white;
+}
+.table tr:last-child td {
+	border-bottom: none;
+}
+.table tr:hover td {
+	background: rgba(255, 255, 255, 0.03);
+}
