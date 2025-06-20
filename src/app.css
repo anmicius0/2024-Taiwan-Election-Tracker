@@ -1,0 +1,126 @@
+@import 'tailwindcss';
+
+@theme {
+	/* Typography */
+	--font-sans: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+	--font-mono: 'Space Mono', 'Fira Code', monospace;
+
+	/* Brand Colors */
+	--color-dpp: #1b9431;
+	--color-kmt: #0000c8;
+	--color-tpp: #00b4b4;
+
+	/* Neo-Brutalism Palette */
+	--color-bg: #fffbf0;
+	--color-card: #ffffff;
+	--color-border: #000000;
+	--color-shadow: #000000;
+	--color-accent: #ffe44d;
+	--color-accent2: #ff6b6b;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	background-color: var(--color-bg);
+	font-family: var(--font-sans);
+	color: #0a0a0a;
+	overflow-x: hidden;
+}
+
+/* --- NEO-BRUTALIST CARD --- */
+.brutal-card {
+	background: var(--color-card);
+	border: 3px solid var(--color-border);
+	box-shadow: 6px 6px 0px var(--color-shadow);
+	transition:
+		box-shadow 0.15s ease,
+		transform 0.15s ease;
+}
+
+.brutal-card:hover {
+	box-shadow: 8px 8px 0px var(--color-shadow);
+	transform: translate(-2px, -2px);
+}
+
+/* alias for legacy class names */
+.glass-panel {
+	background: var(--color-card);
+	border: 3px solid var(--color-border);
+	box-shadow: 6px 6px 0px var(--color-shadow);
+}
+
+/* --- UI ELEMENTS --- */
+.checkbox {
+	appearance: none;
+	width: 1.25rem;
+	height: 1.25rem;
+	border: 2px solid #000;
+	border-radius: 0;
+	background: #fff;
+	cursor: pointer;
+	position: relative;
+	transition: background 0.1s ease;
+	flex-shrink: 0;
+}
+
+.checkbox:checked {
+	background: var(--color-kmt);
+	border-color: #000;
+}
+
+.checkbox:checked::after {
+	content: '';
+	position: absolute;
+	top: 2px;
+	left: 5px;
+	width: 5px;
+	height: 9px;
+	border: 2px solid white;
+	border-top: none;
+	border-left: none;
+	transform: rotate(45deg);
+}
+
+/* --- TABLE --- */
+.table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.table th {
+	padding: 0.75rem 1.25rem;
+	font-weight: 800;
+	color: #0a0a0a;
+	border-bottom: 2px solid #000;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.7rem;
+	background: var(--color-accent);
+}
+
+.table td {
+	padding: 1rem 1.25rem;
+	border-bottom: 1px solid #000;
+	color: #0a0a0a;
+}
+
+.table tr:last-child td {
+	border-bottom: none;
+}
+
+.table tr:hover td {
+	background: var(--color-bg);
+}
+
+/* --- DOT GRID BACKGROUND --- */
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	background-image: radial-gradient(circle, #00000018 1px, transparent 1px);
+	background-size: 24px 24px;
+	pointer-events: none;
+}
